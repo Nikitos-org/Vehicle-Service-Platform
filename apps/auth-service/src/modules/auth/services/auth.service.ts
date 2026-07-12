@@ -8,6 +8,7 @@ import type {
   RequestWithSession,
   SessionWithAccount,
 } from '@vsp/backend-shared/auth-session';
+import { getSessionActorId } from '@vsp/backend-shared/auth-session';
 
 import { PrismaService } from '../../../infrastructure/prisma/prisma.service.js';
 import { AuthMapper } from '../auth.mapper.js';
@@ -32,7 +33,7 @@ export class AuthService {
     dto: RegisterDto,
     request: RequestWithSession,
   ): Promise<PublicAccount> {
-    const existingAccount = await this.prisma.account.findUnique({
+    const existingAccount = await this.prisma.admin.findUnique({
       where: {
         email: dto.email,
       },
@@ -46,7 +47,7 @@ export class AuthService {
     }
 
     const passwordHash = await this.passwordService.hash(dto.password);
-    const account = await this.prisma.account.create({
+    const account = await this.prisma.admin.create({
       data: {
         email: dto.email,
         fullName: dto.fullName,
@@ -65,7 +66,7 @@ export class AuthService {
   ): Promise<PublicAccount> {
     await this.loginAttemptService.assertNotBlocked(dto.email, request.ip);
 
-    const account = await this.prisma.account.findUnique({
+    const account = await this.prisma.admin.findUnique({
       where: {
         email: dto.email,
       },
@@ -90,7 +91,7 @@ export class AuthService {
 
     this.assertAccountCanLogin(account);
 
-    const updatedAccount = await this.prisma.account.update({
+    const updatedAccount = await this.prisma.admin.update({
       where: {
         id: account.id,
       },
@@ -109,13 +110,15 @@ export class AuthService {
   }
 
   async me(session: SessionWithAccount): Promise<PublicAccount> {
-    if (!session.accountId) {
+    const adminId = getSessionActorId(session);
+
+    if (!adminId) {
       throw new UnauthorizedException('Authentication required');
     }
 
-    const account = await this.prisma.account.findUnique({
+    const account = await this.prisma.admin.findUnique({
       where: {
-        id: session.accountId,
+        id: adminId,
       },
     });
 
@@ -136,10 +139,11 @@ export class AuthService {
 
   private async startAuthenticatedSession(
     request: RequestWithSession,
-    accountId: string,
+    adminId: string,
   ) {
     const session = await this.sessionService.regenerate(request);
-    session.accountId = accountId;
+    session.adminId = adminId;
+    session.accountId = adminId;
     await this.sessionService.save(session);
   }
 }

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { paginationMetaSchema } from '@/features/pagination';
+import { paginationMetaSchema } from '@/features/pagination/model/schemas/pagination.schemas';
 
 export const vehicleListItemSchema = z.object({
   id: z.number(),

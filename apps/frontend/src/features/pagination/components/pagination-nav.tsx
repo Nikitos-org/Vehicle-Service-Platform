@@ -6,7 +6,7 @@ import type {
   PaginationMeta,
   PaginationSearchParams,
 } from '../model/types/pagination.types';
-import { buildPaginationItems } from '../utils/build-pagination-items';
+import { buildPaginationNav } from '../utils/build-pagination-items';
 import { createPageHref } from '../utils/create-page-href';
 
 interface PaginationNavProps {
@@ -35,7 +35,7 @@ export function PaginationNav({
     return null;
   }
 
-  const items = buildPaginationItems({
+  const items = buildPaginationNav({
     currentPage: meta.page,
     totalPages: meta.totalPages,
   });

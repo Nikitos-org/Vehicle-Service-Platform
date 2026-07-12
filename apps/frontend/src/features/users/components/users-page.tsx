@@ -1,8 +1,5 @@
-import {
-  PaginationNav,
-  type PaginationSearchParams,
-  PaginationSummary,
-} from '@/features/pagination';
+import type { PaginationSearchParams } from '@/features/pagination/model/types/pagination.types';
+import { PaginationNav } from '@/features/pagination/components/pagination-nav';
 
 import type { UsersPageData } from '../model/types/users.types';
 
@@ -29,10 +26,6 @@ export function UsersPage({ searchParams, usersPage }: UsersPageProps) {
             <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
               Review the current user registry and create new records.
             </p>
-          </div>
-
-          <div className="rounded-2xl bg-white/80 px-4 py-3 text-sm text-slate-600 shadow-sm ring-1 ring-slate-200">
-            <PaginationSummary itemLabel="records" meta={usersPage.meta} />
           </div>
         </div>
 

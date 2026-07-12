@@ -1,12 +1,20 @@
 import type { ExecutionContext } from '@nestjs/common';
 import { createParamDecorator } from '@nestjs/common';
 
-import type { RequestWithSession } from './types.js';
+import { getSessionActorId, type RequestWithSession } from './types.js';
+
+export const CurrentAdminId = createParamDecorator(
+  (_data: unknown, ctx: ExecutionContext): string => {
+    const request = ctx.switchToHttp().getRequest<RequestWithSession>();
+
+    return getSessionActorId(request.session)!;
+  },
+);
 
 export const CurrentAccountId = createParamDecorator(
   (_data: unknown, ctx: ExecutionContext): string => {
     const request = ctx.switchToHttp().getRequest<RequestWithSession>();
 
-    return request.session.accountId!;
+    return getSessionActorId(request.session)!;
   },
 );

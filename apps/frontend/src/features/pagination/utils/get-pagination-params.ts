@@ -3,14 +3,12 @@ import type {
   PaginationSearchParams,
 } from '../model/types/pagination.types';
 
+import { getSearchParamValue } from './resolve-search-params';
+
 interface GetPaginationParamsOptions {
   defaultPage?: number;
   defaultPageSize?: number;
   maxPageSize?: number;
-}
-
-function getFirstValue(value?: string | string[]) {
-  return Array.isArray(value) ? value[0] : value;
 }
 
 function parsePositiveInt(value: string | undefined) {
@@ -35,9 +33,9 @@ export function getPaginationParams(
   const defaultPageSize = options?.defaultPageSize ?? 10;
   const maxPageSize = options?.maxPageSize ?? 100;
 
-  const parsedPage = parsePositiveInt(getFirstValue(searchParams?.page));
+  const parsedPage = parsePositiveInt(getSearchParamValue(searchParams?.page));
   const parsedPageSize = parsePositiveInt(
-    getFirstValue(searchParams?.pageSize),
+    getSearchParamValue(searchParams?.pageSize),
   );
 
   return {

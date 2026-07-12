@@ -1,6 +1,6 @@
 # User Service
 
-NestJS service for user accounts, authentication, and powerfull session handling.
+NestJS service for user management, session-based access control, and integrations with Redis and RabbitMQ.
 
 ## Env files
 

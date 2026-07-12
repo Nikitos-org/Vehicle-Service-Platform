@@ -5,14 +5,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
-import type { RequestWithSession } from './types.js';
+import { getSessionActorId, type RequestWithSession } from './types.js';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest<RequestWithSession>();
 
-    if (!request.session?.accountId) {
+    if (!getSessionActorId(request.session)) {
       throw new UnauthorizedException('Authentication required');
     }
 

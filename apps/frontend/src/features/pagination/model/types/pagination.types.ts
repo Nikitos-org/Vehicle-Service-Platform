@@ -1,26 +1,23 @@
-export interface PaginationMeta {
-  page: number;
-  pageSize: number;
-  totalItems: number;
-  totalPages: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-}
+import type {
+  PaginateBase,
+  PaginatedResult,
+  PaginateMeta,
+} from '@vsp/backend-shared/paginate';
 
-export interface PaginatedResponse<TItem> {
-  items: TItem[];
-  meta: PaginationMeta;
-}
+export type PaginationMeta = PaginateMeta;
+export type PaginatedResponse<TItem> = PaginatedResult<TItem>;
 
 export type PaginationSearchParams = Record<
   string,
   string | string[] | undefined
 >;
 
-export interface PaginationParams {
-  page: number;
-  pageSize: number;
-}
+export type PaginationResolvedSearchParams = PaginationSearchParams;
+export type PaginationSearchParamsInput =
+  | PaginationResolvedSearchParams
+  | Promise<PaginationResolvedSearchParams>;
+
+export type PaginationParams = PaginateBase;
 
 export type PaginationItem =
   | {

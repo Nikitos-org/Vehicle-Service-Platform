@@ -1,10 +1,7 @@
 import Link from 'next/link';
 
-import {
-  PaginationNav,
-  type PaginationSearchParams,
-  PaginationSummary,
-} from '@/features/pagination';
+import type { PaginationSearchParams } from '@/features/pagination/model/types/pagination.types';
+import { PaginationNav } from '@/features/pagination/components/pagination-nav';
 import { CreateVehicleForm } from '@/features/vehicles/components/create-vehicle-form';
 import { VehicleList } from '@/features/vehicles/components/vehicle-list';
 import type { VehiclesPageData } from '@/features/vehicles/model/types/vehicles.types';
@@ -101,13 +98,6 @@ export function UserProfile({
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 Vehicles currently assigned to this user record.
               </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-slate-50/85 px-4 py-3 text-sm text-slate-600">
-              <PaginationSummary
-                itemLabel="vehicles"
-                meta={vehiclesPage.meta}
-              />
             </div>
           </div>
 

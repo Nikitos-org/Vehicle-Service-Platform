@@ -40,7 +40,21 @@ export async function proxyAuthRequest({
     init.body = await request.text();
   }
 
-  const backendResponse = await fetch(makeAuthUrl(path), init);
+  let backendResponse: Response;
+
+  try {
+    backendResponse = await fetch(makeAuthUrl(path), init);
+  } catch {
+    return NextResponse.json(
+      {
+        error: 'Service Unavailable',
+        message: 'Auth service is unavailable. Please try again in a moment.',
+        statusCode: 503,
+      },
+      { status: 503 },
+    );
+  }
+
   const responseHeaders = new Headers();
   const responseContentType = backendResponse.headers.get('content-type');
 

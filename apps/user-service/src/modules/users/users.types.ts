@@ -1,5 +1,5 @@
 export type UserCreatedEvent = {
   id: string;
   email: string;
-  createdByAccountId: string | null;
+  createdByAdminId: string | null;
 };

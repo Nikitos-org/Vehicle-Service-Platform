@@ -62,4 +62,3 @@ export class VehiclesController {
     return this.vehiclesService.deleteById(id, accountId);
   }
 }
-//Hello

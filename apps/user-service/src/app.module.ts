@@ -9,7 +9,6 @@ import { env } from './config/env.js';
 import { PrismaModule } from './infrastructure/prisma/prisma.module.js';
 import { RedisModule } from './infrastructure/redis/redis.module.js';
 import { SessionModule } from './infrastructure/session/session.module.js';
-import { AuthModule } from './modules/auth/auth.module.js';
 import { HealthModule } from './modules/health/health.module.js';
 import { UsersModule } from './modules/users/users.module.js';
 
@@ -32,7 +31,6 @@ import { UsersModule } from './modules/users/users.module.js';
         ],
       }),
     ),
-    AuthModule,
     HealthModule,
     PrismaModule,
     RedisModule,

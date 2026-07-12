@@ -1,13 +1,14 @@
-export type PaginateParams = {
+export type PaginateBase = {
   page: number;
   pageSize: number;
+};
+
+export type PaginateParams = PaginateBase & {
   skip: number;
   take: number;
 };
 
-export type PaginateMeta = {
-  page: number;
-  pageSize: number;
+export type PaginateMeta = PaginateBase & {
   totalItems: number;
   totalPages: number;
   hasPreviousPage: boolean;
@@ -25,9 +26,7 @@ export type PaginateOptions = {
   maxPageSize?: number;
 };
 
-export type BuildPaginatedResultParams<TItem> = {
+export type BuildPaginatedResultParams<TItem> = PaginateBase & {
   items: TItem[];
-  page: number;
-  pageSize: number;
   totalItems: number;
 };
