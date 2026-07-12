@@ -1,0 +1,7 @@
+{
+  "watch": ["src", "../../packages/backend-shared/dist"],
+  "ext": "ts,js",
+  "delay": 500,
+  "signal": "SIGTERM",
+  "exec": "nest build && node --enable-source-maps dist/src/main.js"
+}

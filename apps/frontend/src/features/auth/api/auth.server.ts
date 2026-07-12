@@ -34,6 +34,10 @@ export async function getCurrentAccount(): Promise<PublicAccount | null> {
       return null;
     }
 
+    if (isServiceUnavailableError(error)) {
+      return null;
+    }
+
     throw error;
   }
 }
@@ -54,4 +58,8 @@ export async function ensureGuest() {
   if (account) {
     redirect(routes.appRoutes.home);
   }
+}
+
+function isServiceUnavailableError(error: unknown) {
+  return error instanceof TypeError && error.message === 'fetch failed';
 }

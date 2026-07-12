@@ -12,34 +12,16 @@ datasource db {
   provider = "postgresql"
 }
 
-model Account {
-  id           String    @id @default(ulid())
-  email        String    @unique
-  fullName     String    @map("full_name")
-  passwordHash String    @map("password_hash")
-  isActive     Boolean   @default(true) @map("is_active")
-  lastLoginAt  DateTime? @map("last_login_at")
-
-  createdUsers User[] @relation("UserCreatedByAccount")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("accounts")
-}
-
 model User {
-  id                 String  @id @default(ulid())
-  email              String  @unique
-  name               String
-  avatar             String?
-  createdByAccountId String? @map("created_by_account_id")
-
-  createdByAccount Account? @relation("UserCreatedByAccount", fields: [createdByAccountId], references: [id], onDelete: SetNull)
+  id               String  @id @default(ulid())
+  email            String  @unique
+  name             String
+  avatar           String?
+  createdByAdminId String? @map("created_by_account_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@index([createdByAccountId])
+  @@index([createdByAdminId])
   @@map("users")
 }

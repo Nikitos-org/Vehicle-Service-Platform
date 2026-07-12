@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-import { Account } from '../../../generated/prisma/client.js';
+import { Admin } from '@/generated/prisma/client.js';
+
 import type { PublicAccount } from './auth.types.js';
 
 @Injectable()
 export class AuthMapper {
-  toPublicAccount(account: Account): PublicAccount {
+  toPublicAccount(account: Admin): PublicAccount {
     return {
       id: account.id,
       email: account.email,

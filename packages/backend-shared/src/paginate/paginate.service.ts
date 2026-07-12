@@ -34,25 +34,42 @@ export class PaginateService {
     };
   }
 
-  normalizePage(page?: number, options?: PaginateOptions) {
-    const defaultPage = options?.defaultPage ?? this.defaultPage;
+  private normalizePage(page?: number, options?: PaginateOptions) {
+    const defaultPage = this.toPositiveInteger(
+      options?.defaultPage,
+      this.defaultPage,
+    );
 
-    if (page === undefined || Number.isNaN(page)) {
-      return defaultPage;
-    }
+    const normalizedPage = this.toPositiveInteger(page, defaultPage);
 
-    return Math.max(page, 1);
+    return Math.max(normalizedPage, 1);
   }
 
-  normalizePageSize(pageSize?: number, options?: PaginateOptions) {
-    const defaultPageSize = options?.defaultPageSize ?? this.defaultPageSize;
-    const maxPageSize = options?.maxPageSize ?? this.maxPageSize;
+  private normalizePageSize(pageSize?: number, options?: PaginateOptions) {
+    const defaultPageSize = this.toPositiveInteger(
+      options?.defaultPageSize,
+      this.defaultPageSize,
+    );
 
-    if (pageSize === undefined || Number.isNaN(pageSize)) {
-      return defaultPageSize;
+    const maxPageSize = this.toPositiveInteger(
+      options?.maxPageSize,
+      this.maxPageSize,
+    );
+
+    const normalizedPageSize = this.toPositiveInteger(
+      pageSize,
+      defaultPageSize,
+    );
+
+    return Math.min(Math.max(normalizedPageSize, 1), maxPageSize);
+  }
+
+  private toPositiveInteger(value: number | undefined, fallback: number) {
+    if (value === undefined || !Number.isFinite(value)) {
+      return fallback;
     }
 
-    return Math.min(Math.max(pageSize, 1), maxPageSize);
+    return Math.floor(value);
   }
 
   buildMeta({

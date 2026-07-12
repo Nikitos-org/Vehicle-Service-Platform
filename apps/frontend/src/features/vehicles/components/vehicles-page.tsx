@@ -1,8 +1,5 @@
-import {
-  PaginationNav,
-  type PaginationSearchParams,
-  PaginationSummary,
-} from '@/features/pagination';
+import type { PaginationSearchParams } from '@/features/pagination/model/types/pagination.types';
+import { PaginationNav } from '@/features/pagination/components/pagination-nav';
 
 import type { VehiclesPageData } from '../model/types/vehicles.types';
 
@@ -32,10 +29,6 @@ export function VehiclesPage({
               Administrative view of all registered transport vehicles. Open the
               owner profile to inspect the full linked user record.
             </p>
-          </div>
-
-          <div className="rounded-2xl bg-white/80 px-4 py-3 text-sm text-slate-600 shadow-sm ring-1 ring-slate-200">
-            <PaginationSummary itemLabel="vehicles" meta={vehiclesPage.meta} />
           </div>
         </div>
 

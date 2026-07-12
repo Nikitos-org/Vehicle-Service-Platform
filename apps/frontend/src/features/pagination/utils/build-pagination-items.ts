@@ -6,7 +6,7 @@ interface BuildPaginationItemsOptions {
   siblingCount?: number;
 }
 
-export function buildPaginationItems({
+export function buildPaginationNav({
   currentPage,
   totalPages,
   siblingCount = 1,

@@ -34,4 +34,3 @@ export class UsersEventsPublisher {
     }
   }
 }
-//TODO: use PATTERN OUTBOX later

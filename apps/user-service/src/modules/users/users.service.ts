@@ -16,11 +16,11 @@ export class UsersService {
     private readonly paginateService: PaginateService,
   ) {}
 
-  async create(dto: CreateUserDto, accountId: string) {
+  async create(dto: CreateUserDto, adminId: string) {
     const user = await this.prisma.user.create({
       data: {
         ...dto,
-        createdByAccountId: accountId,
+        createdByAdminId: adminId,
       },
     });
 
@@ -28,14 +28,14 @@ export class UsersService {
     return user;
   }
 
-  async findAll(query: PaginateQueryDto, accountId: string) {
+  async findAll(query: PaginateQueryDto, adminId: string) {
     const pagination = this.paginateService.resolve({
       page: query.page,
       pageSize: query.pageSize,
     });
 
     const where = {
-      createdByAccountId: accountId,
+      createdByAdminId: adminId,
     };
 
     const [users, totalItems] = await Promise.all([
@@ -58,12 +58,12 @@ export class UsersService {
     });
   }
 
-  findOneById(id: string, accountId: string) {
-    return this.findOwnedByIdOrThrow(id, accountId);
+  findOneById(id: string, adminId: string) {
+    return this.findOwnedByIdOrThrow(id, adminId);
   }
 
-  async updateById(id: string, dto: UpdateUserDto, accountId: string) {
-    await this.findOwnedByIdOrThrow(id, accountId);
+  async updateById(id: string, dto: UpdateUserDto, adminId: string) {
+    await this.findOwnedByIdOrThrow(id, adminId);
 
     return this.prisma.user.update({
       where: { id },
@@ -71,19 +71,19 @@ export class UsersService {
     });
   }
 
-  async deleteById(id: string, accountId: string) {
-    await this.findOwnedByIdOrThrow(id, accountId);
+  async deleteById(id: string, adminId: string) {
+    await this.findOwnedByIdOrThrow(id, adminId);
 
     return this.prisma.user.delete({
       where: { id },
     });
   }
 
-  private async findOwnedByIdOrThrow(id: string, accountId: string) {
+  private async findOwnedByIdOrThrow(id: string, adminId: string) {
     const user = await this.prisma.user.findFirst({
       where: {
         id,
-        createdByAccountId: accountId,
+        createdByAdminId: adminId,
       },
     });
 

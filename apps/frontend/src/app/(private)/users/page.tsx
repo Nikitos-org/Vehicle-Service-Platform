@@ -1,18 +1,15 @@
-import {
-  getPaginationParams,
-  type PaginationSearchParams,
-} from '@/features/pagination';
+import type { PaginationSearchParamsInput } from '@/features/pagination/model/types/pagination.types';
+import { getPaginationParams } from '@/features/pagination/utils/get-pagination-params';
+import { resolveSearchParams } from '@/features/pagination/utils/resolve-search-params';
 import { getUsers } from '@/features/users/api/users.server';
 import { UsersPage } from '@/features/users/components/users-page';
 
 interface PageProps {
-  searchParams?: PaginationSearchParams | Promise<PaginationSearchParams>;
+  searchParams?: PaginationSearchParamsInput;
 }
 
 export default async function Page({ searchParams }: PageProps) {
-  const resolvedSearchParams = searchParams
-    ? await Promise.resolve(searchParams)
-    : undefined;
+  const resolvedSearchParams = await resolveSearchParams(searchParams);
   const pagination = getPaginationParams(resolvedSearchParams, {
     defaultPageSize: 10,
     maxPageSize: 10,

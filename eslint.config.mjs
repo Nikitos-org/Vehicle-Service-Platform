@@ -15,6 +15,7 @@ const applyToTsFiles = (config) => ({
   files: [
     'apps/user-service/**/*.{ts,tsx}',
     'apps/vehicle-service/**/*.{ts,tsx}',
+    'apps/auth-service/**/*.{ts,tsx}',
     'packages/backend-shared/**/*.{ts,tsx}',
   ],
   languageOptions: {
@@ -45,6 +46,7 @@ export default defineConfig([
     files: [
       'apps/user-service/**/*.{js,mjs,cjs}',
       'apps/vehicle-service/**/*.{js,mjs,cjs}',
+      'apps/auth-service/**/*.{ts,tsx}',
       'packages/backend-shared/**/*.{js,mjs,cjs}',
     ],
     languageOptions: {
@@ -60,6 +62,7 @@ export default defineConfig([
     files: [
       'apps/user-service/**/*.{ts,tsx}',
       'apps/vehicle-service/**/*.{ts,tsx}',
+       'apps/auth-service/**/*.{ts,tsx}',
       'packages/backend-shared/**/*.{ts,tsx}',
     ],
     languageOptions: {
@@ -136,6 +139,8 @@ export default defineConfig([
       'apps/user-service/**/*.test.{ts,tsx}',
       'apps/vehicle-service/**/*.spec.{ts,tsx}',
       'apps/vehicle-service/**/*.test.{ts,tsx}',
+      'apps/auth-service/**/*.spec.{ts,tsx}',
+      'apps/auth-service/**/*.test.{ts,tsx}',
       'packages/backend-shared/**/*.spec.{ts,tsx}',
       'packages/backend-shared/**/*.test.{ts,tsx}',
     ],

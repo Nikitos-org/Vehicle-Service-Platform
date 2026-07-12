@@ -1,5 +1,5 @@
 # Vehicle Service Platform
-
+Hello!
 Monorepo for the frontend, backend services, and shared packages.
 
 ## What you need
